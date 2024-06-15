@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPR V-1.0 (Beta)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .welcome-message {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #0056b3; /* Azul escuro para o título */
+        }
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.dropdown input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: #1e3858; /* Azul Escuro */
+    border: 1px solid #16324f; /* Azul mais escuro */
+    color: #ffffff; /* Letras brancas */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1e3858; /* Azul Escuro */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    width: 100%;
+    max-height: 600px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    text-align: left;
+    border: 3px solid #FFFFFF; /* Adicione uma borda */
+    border-radius: 20px; /* Cantos arredondados */
+    padding: 10px; /* Espaçamento interno */
+}
+
+.dropdown-content div {
+    color: #ffffff; /* Letras brancas */
+    padding: 8px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.dropdown-content div:hover, .dropdown-content div:focus {
+    background-color: #345d8d; /* Azul mais claro ao hover/focus */
+    outline: none;
+}
+
+
+        .content-box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            font-size: 14px;
+            background-color: #f9f9f9;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+            text-align: left;
+            font-weight: bold; /* Deixa o texto em negrito */
+            line-height: 2.0; /* Adjust line height to add more space between lines */
+            font-family: Segoe UI, sans-serif; /* Altera a fonte para Arial ou uma fonte sans-serif genérica */
+
+        }
+        .copy-button {
+            padding: 8px 16px;
+            font-size: 14px;
+            background-color: #1e3858;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+        .copy-button:hover {
+            background-color: #0056b3;
+        }
+        .add-button {
+            padding: 6px 12px;
+            font-size: 14px;
+            background-color: #555;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: block;
+            margin: 15px auto;
+        }
+        .add-button:hover {
+            background-color: #333;
+        }
+        .editor-box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            font-size: 13px;
+            background-color: #E8F9FF;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+            text-align: left;
+            min-height: 100px;
+            line-height: 2.0; /* Adjust line height to add more space between lines */
+            font-family: Monospace, sans-serif; /* Altera a fonte para Arial ou uma fonte sans-serif genérica */
+        }
+        .nav-button {
+            padding: 8px 16px;
+            font-size: 14px;
+            background-color: #f9f9f9;
+            color: gray;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            margin: 0 5px;
+        }
+        .nav-button:hover {
+            background-color: #e0e0e0;
+        }
+        .alert {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .credits {
+            font-size: 10px;
+            margin-top: 10px;
+        }
+        .selected-option {
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: left;
+        }
+        .disclaimer {
+            font-size: 10px;
+            margin-top: 10px;
+            font-style: italic;
+            color: gray;
+            white-space: pre-wrap;
+        }
+        .delete-button {
+            padding: 6px 12px;
+            font-size: 12px;
+            background-color: #FF0000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+        .delete-button:hover {
+            background-color: #990000;
+        }
+        #searchInput::placeholder {
+    color: #ffffff; /* Cor branca */
+}
+        /* AJUSTES PARA MOBILE */
+        @media (max-width: 768px) {
+    body {
+        font-size: 16px; /* Base font size for smaller screens */
+    }
+
+    h1 {
+        font-size: 24px; /* Larger font size for headings on smaller screens */
+    }
+
+    .welcome-message {
+        font-size: 20px; /* Slightly larger font size for welcome message */
+    }
+
+    .dropdown input[type="text"] {
+        font-size: 16px; /* Font size for dropdown input */
+    }
+
+    .dropdown-content {
+        max-height: 150px; /* Reduced max-height for dropdown content on smaller screens */
+    }
+
+    .dropdown-content div {
+        font-size: 16px; /* Font size for dropdown options */
+    }
+
+    .content-box,
+    .editor-box {
+        font-size: 16px; /* Font size for content and editor boxes */
+    }
+
+    .copy-button,
+    .add-button,
+    .delete-button {
+        font-size: 16px; /* Font size for action buttons */
+    }
+
+    .nav-button {
+        font-size: 16px; /* Font size for navigation buttons */
+    }
+
+    .alert {
+        font-size: 16px; /* Font size for alerts */
+    }
+
+    .credits,
+    .selected-option,
+    .disclaimer {
+        font-size: 16px; /* Font size for credits, selected options, disclaimer */
+    }
+}
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-message">Seja bem-vindo(a) a versão de teste do</div>
+        <h1>SISTEMA DE PRESCRIÇÕES AMBULATORIAIS</h1>
+        <div class="dropdown">
+<input type="text" id="searchInput" placeholder="&#128269 Pesquisar  |  Use ↑↓ para explorar" oninput="filtrarOpcoes()" onkeydown="navegarTeclado(event)">
+            <div id="dropdownContent" class="dropdown-content"></div>
+        </div>
+        <div>
+            <button id="anteriorButton" class="nav-button" onclick="navegarAnterior()">&#9664;</button>
+            <button id="proximoButton" class="nav-button" onclick="navegarProximo()">&#9654;</button>
+        </div>
+        <div id="selectedOption" class="selected-option"></div>
+        <div id="conteudo" class="content-box">
+            Selecione uma opção para ver a prescrição.
+        </div>
+        <button id="copyButton" class="copy-button" style="display: none;" onclick="copiarTexto()">Copiar para a área de transferência</button>
+        <button id="addButton" class="add-button" style="display: none;" onclick="adicionarAoEditor()">Adicionar ao editor</button>
+        <div id="editorBox" class="editor-box" contenteditable="true" style="display: none;"></div>
+        <button id="copyEditedButton" class="copy-button" style="display: none; background-color: #1e3858;" onclick="copiarTextoEditado()">Copiar texto editado para a área de transferência</button>
+        <button id="deleteButton" class="delete-button" style="display: none;" onclick="apagarTexto()">Apagar texto</button>
+        <div id="alertBox" class="alert">Texto copiado para a área de transferência!</div>
+        <!-- Créditos do autor -->
+                <div class="credits">Autor: Cícero Batista. Direitos reservados.</div>
+        <div class="disclaimer">Aplicativo de uso exclusivo por profissionais médicos.<br>O autor não se responsabiliza pelo uso indevido das informações aqui contidas.</div>
+    </div>
+
+    <script>
+        const database = {
+            'Abscesso_não-flutuante_(cefalexina_+_compressa_morna)': `USO ORAL
+1 - CEFALEXINA 500 MG COMPRIMIDO ------------------------------------- 28-40 CPS
+TOMAR 1 COMPRIMIDO DE 6 – 6 H, 7 DIAS A 10 DIAS (OU ATÉ FLUTUAR / RESOLVER) 
+
+- CUIDADOS GERAIS
+COMPRESSA MORNA --- APLICAR COMPRESSA MORNA SOBRE O ABSCESSO 6 VEZES AO DIA, ATÉ FLUTUAR / RESOLVER
+RETORNAR PARA REAVALIAÇÃO EM 72 HORAS SE NÃO HOUVER MELHORA.`,
+'Abscesso_flutuante_–_cefalexina_(pós-drenagem)': `USO ORAL
+1 - CEFALEXINA 500 MG COMPRIMIDO ------------------------------------- 28-40 CPS
+TOMAR 1 COMPRIMIDO DE 6 – 6 H, 7 DIAS A 10 DIAS.
+
+ORIENTAÇÃO: PROCURAR UBS OU EMERGÊNCIA PARA RETIRADA DE PONTOS / DRENO EM 7 DIAS.`,
+'Afta_/_estomatite_–_tipo_1_(triancinolona_acetonida_-_corticoide_genérico)': `USO TÓPICO
+1 - TRIANCINOLONA ACETONIDA 1MG/G POMADA ------------------- 01 BISNAGA
+APLICAR UMA PEQUENA QUANTIDADE, SEM ESFREGAR, SOBRE A LESÃO 2 A 3 VEZES AO DIA.`,
+'Afta_/_estomatite_–_tipo_2_(omcilon_orabase_-_corticoide_marca)': `USO TÓPICO
+1 - OMCILON®-A ORABASE --------------------------------------------------- 01 BISNAGA
+APLICAR UMA PEQUENA QUANTIDADE, SEM ESFREGAR, SOBRE A LESÃO 2 A 3 VEZES AO DIA.`,
+'Afta_/_estomatite_–_tipo_3_(lidocaína_tópica_-_anestésico)': `USO TÓPICO
+1 - LIDOCAÍNA 50MG/G CREME ----------------------------------- 01 BISNAGA
+ALICAR UMA PEQUENA QUANTIDADE SOBRE A LESÃO, 2 A 3 VEZES AO DIA.`,
+'Afta_/_estomatite_–_combinação_em_gotas,_crianças_>_3_anos': `USO TÓPICO
+1 - BISMU-JET (NEOMICINA + BISMUTO E SÓDIO + PROCAÍNA) GOTAS —- 01 FRASCO
+APLICAR 1 A 2 GOTAS, 3 A 6 VEZES AO DIA NA LESÃO.`,
+'Afta_/_estomatite_-_combinação_-_spray_$$$,_crianças_>_3_anos': `USO TÓPICO
+1 - HEXOMEDINE (HEXAMIDINA + TETRACAÍNA) SPRAY -----------------—- 01 FRASCO
+APLICAR 3 BORRIFADAS NA BOCA 3 A 4 VEZES AO DIA.`
+};
+const conteudoElement = document.getElementById('conteudo');
+const copyButton = document.getElementById('copyButton');
+const addButton = document.getElementById('addButton');
+const editorBox = document.getElementById('editorBox');
+const copyEditedButton = document.getElementById('copyEditedButton');
+const deleteButton = document.getElementById('deleteButton');
+const alertBox = document.getElementById('alertBox');
+const searchInput = document.getElementById('searchInput');
+const dropdownContent = document.getElementById('dropdownContent');
+const selectedOption = document.getElementById('selectedOption');
+const anteriorButton = document.getElementById('anteriorButton');
+const proximoButton = document.getElementById('proximoButton');
+
+let currentOptionIndex = -1;
+let filteredOptions = [];
+
+// Disable autocomplete for the search input
+searchInput.setAttribute('autocomplete', 'off');
+
+function mostrarOpcoes() {
+    dropdownContent.style.display = 'block';
+    filterAndDisplayDropdownItems();
+    document.addEventListener('click', fecharOpcoesForaClique);
+}
+
+function fecharOpcoesForaClique(event) {
+    if (!event.target.closest('#dropdownContent') && !event.target.matches('#searchInput')) {
+        ocultarOpcoes();
+        document.removeEventListener('click', fecharOpcoesForaClique);
+    }
+}
+
+function ocultarOpcoes() {
+    dropdownContent.style.display = 'none';
+}
+
+function atualizarConteudo(key) {
+    if (key) {
+        conteudoElement.textContent = database[key];
+        copyButton.style.display = 'block';
+        addButton.style.display = 'block';
+        selectedOption.textContent = key.replace(/_/g, ' ');
+    } else {
+        conteudoElement.textContent = 'Selecione uma opção para ver a prescrição.';
+        copyButton.style.display = 'none';
+        addButton.style.display = 'none';
+        selectedOption.textContent = '';
+    }
+    ocultarOpcoes();
+}
+
+function copiarTexto() {
+    navigator.clipboard.writeText(conteudoElement.textContent).then(() => {
+        alertBox.style.display = 'block';
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 3000);
+    }).catch(err => {
+        console.error('Erro ao copiar texto: ', err);
+    });
+}
+
+function adicionarAoEditor() {
+    const newText = conteudoElement.textContent;
+    if (editorBox.innerHTML.trim() !== '') {
+        editorBox.innerHTML += `\n\n${newText}`; // Add newline characters before new text
+    } else {
+        editorBox.innerHTML += `${newText}`; // No newline characters for the first text
+    }
+    // Replace \n with <br> for visual line breaks in the editorBox
+    editorBox.innerHTML = editorBox.innerHTML.replace(/\n/g, '<br>');
+    copyEditedButton.style.display = 'block';
+    deleteButton.style.display = 'block';
+    editorBox.style.display = 'block';
+}
+
+function copiarTextoEditado() {
+    const editedText = editorBox.innerText; // Use innerText to get only the text without HTML tags
+    navigator.clipboard.writeText(editedText).then(() => {
+        alertBox.style.display = 'block';
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 3000);
+    }).catch(err => {
+        console.error('Erro ao copiar texto editado: ', err);
+    });
+}
+
+
+function apagarTexto() {
+    editorBox.innerHTML = '';
+    copyEditedButton.style.display = 'none';
+    deleteButton.style.display = 'none';
+}
+
+function selecionarOpcao(key) {
+    atualizarConteudo(key);
+    ocultarOpcoes();
+}
+
+function navegarAnterior() {
+    if (filteredOptions.length === 0) return;
+    currentOptionIndex = (currentOptionIndex - 1 + filteredOptions.length) % filteredOptions.length;
+    selecionarOpcao(filteredOptions[currentOptionIndex]);
+}
+
+function navegarProximo() {
+    if (filteredOptions.length === 0) return;
+    currentOptionIndex = (currentOptionIndex + 1) % filteredOptions.length;
+    selecionarOpcao(filteredOptions[currentOptionIndex]);
+}
+
+function navegarTeclado(event) {
+    const key = event.key;
+    if (key === 'ArrowDown' || key === 'ArrowRight') {
+        event.preventDefault();
+        navegarProximo();
+    } else if (key === 'ArrowUp' || key === 'ArrowLeft') {
+        event.preventDefault();
+        navegarAnterior();
+    }
+}
+
+function filterAndDisplayDropdownItems() {
+    const filter = searchInput.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const filterWords = filter.split(/\s+/);
+    dropdownContent.innerHTML = ''; // Clear existing items
+    filteredOptions = Object.keys(database).filter(option => {
+        const normalizedOption = option.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/_/g, ' ');
+        return filterWords.every(word => normalizedOption.includes(word));
+    });
+    filteredOptions.forEach(key => {
+        const optionDiv = document.createElement('div');
+        optionDiv.textContent = key.replace(/_/g, ' ');
+        optionDiv.onclick = () => selecionarOpcao(key);
+        dropdownContent.appendChild(optionDiv);
+    });
+    currentOptionIndex = filteredOptions.length > 0 ? 0 : -1;
+}
+
+// Event listeners
+searchInput.addEventListener('focus', mostrarOpcoes);
+searchInput.addEventListener('input', filterAndDisplayDropdownItems); // Filter items as the user types
+dropdownContent.addEventListener('click', function(event) {
+    if (event.target && event.target.matches('div')) {
+        const key = filteredOptions[Array.from(this.children).indexOf(event.target)];
+        selecionarOpcao(key);
+    }
+});
+
+// Additional event listener for keyboard navigation
+searchInput.addEventListener('keydown', navegarTeclado);
+    </script>
+</body>
+</html>
